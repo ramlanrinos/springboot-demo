@@ -20,7 +20,8 @@ public class UserController {
     public List<User> getUsers() {
         return Arrays.asList(
                 new User(1, "Rinos", "rns@gmail.com"),
-                new User(2, "Rosy", "ros@gmail.com")
+                new User(2, "Rosy", "ros@gmail.com"),
+                new User(3, "Mohamed", "mhd@gmail.com")
         );
     }
 
