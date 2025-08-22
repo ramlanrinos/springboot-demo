@@ -1,6 +1,7 @@
 package com.example.springbootdemo.controllers;
 
 import com.example.springbootdemo.entity.UserEntity;
+import com.example.springbootdemo.exceptions.ResourceNotFoundException;
 import com.example.springbootdemo.models.User;
 import com.example.springbootdemo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public Optional<UserEntity> getUser(@PathVariable int id) {
-        return userRepository.findById(id);
+    public UserEntity getUser(@PathVariable int id) {
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with this id: " + id));
     }
 
 }
