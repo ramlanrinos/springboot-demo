@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/users")
@@ -33,6 +34,11 @@ public class UserController {
     @PostMapping
     public UserEntity createUser(@RequestBody UserEntity user) {
         return userRepository.save(user);
+    }
+
+    @GetMapping("/{id}")
+    public Optional<UserEntity> getUser(@PathVariable int id) {
+        return userRepository.findById(id);
     }
 
 }
