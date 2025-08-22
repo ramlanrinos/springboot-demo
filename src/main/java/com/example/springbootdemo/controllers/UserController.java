@@ -4,9 +4,7 @@ import com.example.springbootdemo.entity.UserEntity;
 import com.example.springbootdemo.models.User;
 import com.example.springbootdemo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +28,11 @@ public class UserController {
 //                new User(3, "Mohamed", "mhd@gmail.com")
 //        );
         return userRepository.findAll();
+    }
+
+    @PostMapping
+    public UserEntity createUser(@RequestBody UserEntity user) {
+        return userRepository.save(user);
     }
 
 }
