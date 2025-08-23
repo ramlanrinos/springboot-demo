@@ -49,4 +49,10 @@ public class UserController {
         userdata.setEmail(user.getEmail());
         return userRepository.save(userdata);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable int id) {
+        UserEntity userdata = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with this id: " + id));
+        userRepository.delete(userdata);
+    }
 }
