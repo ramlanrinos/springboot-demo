@@ -5,6 +5,7 @@ import com.example.springbootdemo.exceptions.ResourceNotFoundException;
 import com.example.springbootdemo.models.User;
 import com.example.springbootdemo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -51,8 +52,9 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable int id) {
+    public ResponseEntity<?> deleteUser(@PathVariable int id) {
         UserEntity userdata = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with this id: " + id));
         userRepository.delete(userdata);
+        return ResponseEntity.ok().build();
     }
 }
