@@ -20,10 +20,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authz ->
-                authz.requestMatchers("/api/users/**").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
+                authz.requestMatchers(HttpMethod.POST, "/api/users").permitAll()
+                        .requestMatchers("/api/users/**").authenticated()
                         .anyRequest().permitAll()
-        ).formLogin(form -> form.permitAll().defaultSuccessUrl("/dashboard"));
+        ).formLogin(form -> form.permitAll().defaultSuccessUrl("/dashboard"))
+                .csrf(csrf -> csrf.disable());
         return http.build();
     }
 
