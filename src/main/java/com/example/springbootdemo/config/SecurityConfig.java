@@ -20,8 +20,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authz ->
                 authz.requestMatchers("/api/users/**").authenticated()
-                        .requestMatchers("/").permitAll()
-        ).formLogin(form -> form.permitAll());
+                        .anyRequest().permitAll()
+        ).formLogin(form -> form.permitAll().defaultSuccessUrl("/dashboard"));
         return http.build();
     }
 
