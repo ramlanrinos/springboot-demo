@@ -10,15 +10,19 @@ public class UserEntity {
     private int id;
     private String name;
     private String email;
+    private String userName;
+    private String password;
 
     public UserEntity() {
         super();
     }
 
-    public UserEntity(int id, String name, String email) {
+    public UserEntity(int id, String name, String email, String userName, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.userName = userName;
+        this.password = password;
     }
 
     public int getId() {
@@ -43,5 +47,21 @@ public class UserEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
