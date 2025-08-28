@@ -1,8 +1,10 @@
 package com.example.springbootdemo.config;
 
+import com.example.springbootdemo.services.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -29,22 +31,32 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-        UserDetails user = User.withUsername("ayifa")
-                .password(passwordEncoder.encode("user123"))
-                .roles("USER")
-                .build();
+    public UserDetailsService userDetailsService() {
+//        UserDetails user = User.withUsername("ayifa")
+//                .password(passwordEncoder.encode("user123"))
+//                .roles("USER")
+//                .build();
+//
+//        UserDetails admin = User.withUsername("mohamed")
+//                .password(passwordEncoder.encode("admin456"))
+//                .roles("ADMIN")
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(user, admin);
 
-        UserDetails admin = User.withUsername("mohamed")
-                .password(passwordEncoder.encode("admin456"))
-                .roles("ADMIN")
-                .build();
-
-        return new InMemoryUserDetailsManager(user, admin);
+        return new CustomUserDetailsService();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
     }
 }
