@@ -30,7 +30,8 @@ public class SecurityConfig {
                 authz.requestMatchers(HttpMethod.POST, "/api/users").permitAll()
                         .requestMatchers("/api/users/**").authenticated()
                         .anyRequest().permitAll()
-        ).formLogin(form -> form.permitAll().defaultSuccessUrl("/dashboard"))
+        )
+                // .formLogin(form -> form.permitAll().defaultSuccessUrl("/dashboard"))
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
