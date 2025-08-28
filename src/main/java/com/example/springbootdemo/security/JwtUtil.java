@@ -3,10 +3,12 @@ package com.example.springbootdemo.security;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
 
+@Component
 public class JwtUtil {
     private final static String SECRET_KEY_STRING = "aeQ8ugNatJzMN0GgBymyi5aUMsQLclQx";
     private final SecretKey secretKey = Keys.hmacShaKeyFor(SECRET_KEY_STRING.getBytes());
