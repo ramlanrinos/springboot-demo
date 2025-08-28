@@ -1,6 +1,7 @@
 package com.example.springbootdemo.security;
 
 import com.example.springbootdemo.services.CustomUserDetailsService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -45,6 +48,13 @@ public class JwtFilter extends OncePerRequestFilter {
                 }
             }
         } catch (Exception e) {
+            Map<String, String> responseMap = new HashMap<>();
+            responseMap.put("error", "Invalid token");
+
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonString = mapper.writeValueAsString(responseMap);
+
+            response.getWriter().write(jsonString);
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
